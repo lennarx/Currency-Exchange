@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  virtualmind.exchange.api:
+    image: ${DOCKER_REGISTRY-}virtualmindexchangeapi
+    build:
+      context: .
+      dockerfile: src/Presentation/VirtualMind.Exchange.API/Dockerfile
