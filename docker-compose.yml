@@ -1,8 +1,25 @@
 version: '3.4'
 
 services:
+  exchangedb:
+    container_name: exchange-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - 8002:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=p@55w0rd1234 
+
   virtualmind.exchange.api:
     image: ${DOCKER_REGISTRY-}virtualmindexchangeapi
     build:
       context: .
       dockerfile: src/Presentation/VirtualMind.Exchange.API/Dockerfile
+    ports:
+      - 8001:80
+    depends_on:
+      - exchangedb
+    environment:
+      - DB_HOST=exchangedb
+      - DB_NAME=ExchangeServiceDb
+      - DB_SA_PASSWORD=p@55w0rd1234

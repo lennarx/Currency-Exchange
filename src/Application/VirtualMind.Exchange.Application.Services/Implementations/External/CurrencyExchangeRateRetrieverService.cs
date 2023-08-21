@@ -27,8 +27,7 @@ namespace VirtualMind.Exchange.Application.Services.Implementations.External
             var externalServiceResponse = await client.GetAsync(url);
 
             try
-            {
-
+            { 
                 externalServiceResponse.EnsureSuccessStatusCode();
             }
             catch (Exception)
@@ -42,10 +41,17 @@ namespace VirtualMind.Exchange.Application.Services.Implementations.External
 
             if (string.IsNullOrEmpty(stringResponse))
             {
-                throw new NoContentResponseException(url);
+                return null;
             }
 
-            return JsonSerializer.Deserialize<CurrencyExchangeRateApiResponse>(stringResponse);
+            var deserializedStringExchangeRateResponse = JsonSerializer.Deserialize<List<string>>(stringResponse);
+
+            return new CurrencyExchangeRateApiResponse
+            {
+                PurchaseExchangeRate = Convert.ToDouble(deserializedStringExchangeRateResponse[0]),
+                SaleExchangeRate = Convert.ToDouble(deserializedStringExchangeRateResponse[1]),
+                LastUpdate = deserializedStringExchangeRateResponse[2]
+            };
         }
     }
 }

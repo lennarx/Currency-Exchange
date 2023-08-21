@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualMind.Exchange.Domain
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1811D1A0-8EFC-47D8-81C0-88B2946896F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualMind.Exchange.Infrastructure", "src\Infrastructure\VirtualMind.Exchange.Infrastructure\VirtualMind.Exchange.Infrastructure.csproj", "{FFFCA590-07CD-4846-8405-2216A991C1D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualMind.Exchange.Tests.Acceptance", "tests\VirtualMind.Exchange.Tests.Acceptance\VirtualMind.Exchange.Tests.Acceptance.csproj", "{C9AE6E88-55F0-4063-AC73-C9B0C7498B73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{1811D1A0-8EFC-47D8-81C0-88B2946896F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1811D1A0-8EFC-47D8-81C0-88B2946896F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1811D1A0-8EFC-47D8-81C0-88B2946896F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFFCA590-07CD-4846-8405-2216A991C1D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFFCA590-07CD-4846-8405-2216A991C1D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFFCA590-07CD-4846-8405-2216A991C1D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFFCA590-07CD-4846-8405-2216A991C1D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9AE6E88-55F0-4063-AC73-C9B0C7498B73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9AE6E88-55F0-4063-AC73-C9B0C7498B73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9AE6E88-55F0-4063-AC73-C9B0C7498B73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9AE6E88-55F0-4063-AC73-C9B0C7498B73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +69,8 @@ Global
 		{69D6A142-6E88-4B42-A1CB-EAE5F491AFDA} = {A20E458A-05C6-49CE-8280-3A31B5E023F4}
 		{E747B709-1A21-427F-8BB4-78E1EA29E240} = {31012F75-BAD6-4F06-A0E0-A55450B0A131}
 		{FA58AA9F-5DB7-4D21-A396-904494DC599A} = {D9870961-4C5C-45A2-AC54-41715E3849BB}
+		{FFFCA590-07CD-4846-8405-2216A991C1D2} = {A0E0BDEC-FF6A-4F99-8C8C-603B650F0FAC}
+		{C9AE6E88-55F0-4063-AC73-C9B0C7498B73} = {C2321C8E-ADA6-47C5-96F7-F4DEC9820929}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C8550D81-0414-41EF-BD46-8C9B655851F0}

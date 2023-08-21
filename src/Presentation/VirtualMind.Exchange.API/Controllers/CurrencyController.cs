@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VirtualMind.Exchange.API.Utils.Extensions;
 using VirtualMind.Exchange.Application.Services.Implementations.External.Responses;
 using VirtualMind.Exchange.Domain.Domain.Contracts.External;
 using VirtualMind.Exchange.Domain.Domain.Domain;
@@ -34,24 +35,33 @@ namespace VirtualMind.Exchange.API.Controllers
         [ProducesResponseType(typeof(CurrencyExchangeRate), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetCurrencyExchangeRate(ISOCode isoCode)
+        public async Task<IActionResult> GetCurrencyExchangeRate(string isoCode)
         {
-            var currencyExchangeRate = await _currencyExchangeRateRetrieverService.GetCurrencyExchangeRateAsync(isoCode);
+            ISOCode isoCodeEnum;
+
+            try
+            {
+                isoCodeEnum = isoCode.GetEnumValueFromDescription<ISOCode>();
+            }
+            catch (Exception)
+            {
+                return BadRequest("No iso code was found for the provided input");
+            }
+
+            var currencyExchangeRate = await _currencyExchangeRateRetrieverService.GetCurrencyExchangeRateAsync(isoCodeEnum);
 
             if (currencyExchangeRate is null)
             {
                 return NotFound("No currency exchange rate was found for the given ISO code");
             }
 
-            if (isoCode == ISOCode.BRL)
+            if (isoCodeEnum == ISOCode.BRL)
             {
-                currencyExchangeRate.SaleExchangeRate = currencyExchangeRate.SaleExchangeRate / 4;
                 currencyExchangeRate.PurchaseExchangeRate = currencyExchangeRate.PurchaseExchangeRate / 4;
-            }            
+                currencyExchangeRate.SaleExchangeRate = currencyExchangeRate.SaleExchangeRate / 4;                
+            }
 
             return Ok(_mapper.Map<CurrencyExchangeRate>(currencyExchangeRate));
         }
-
-
     }
 }
