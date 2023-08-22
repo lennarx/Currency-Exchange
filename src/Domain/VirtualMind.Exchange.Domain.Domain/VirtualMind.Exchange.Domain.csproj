@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\VirtualMind.Exchange.Infrastructure\VirtualMind.Exchange.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

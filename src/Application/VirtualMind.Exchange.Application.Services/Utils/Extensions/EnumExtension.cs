@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace VirtualMind.Exchange.API.Utils.Extensions
+namespace VirtualMind.Exchange.Application.Services.Utils.Extensions
 {
     public static class EnumExtension
     {
@@ -11,7 +11,7 @@ namespace VirtualMind.Exchange.API.Utils.Extensions
                 if (Attribute.GetCustomAttribute(field,
                         typeof(DescriptionAttribute)) is DescriptionAttribute attribute)
                 {
-                    if (attribute.Description == description)
+                    if (attribute.Description == description.ToUpper())
                     {
                         return (TEnum)field.GetValue(null);
                     }

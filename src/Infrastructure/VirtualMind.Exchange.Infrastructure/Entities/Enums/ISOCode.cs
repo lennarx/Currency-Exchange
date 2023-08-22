@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VirtualMind.Exchange.Domain.Domain.Domain.Enums
+namespace VirtualMind.Exchange.Infrastructure.Entities.Enums
 {
     public enum ISOCode
     {

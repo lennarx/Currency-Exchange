@@ -1,25 +1,24 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Text.Json;
-using VirtualMind.Exchange.Application.Services.Exceptions;
 using VirtualMind.Exchange.Application.Services.Implementations.External.Responses;
 using VirtualMind.Exchange.Application.Services.Settings.External;
 using VirtualMind.Exchange.Domain.Domain.Contracts.External;
-using VirtualMind.Exchange.Domain.Domain.Domain.Enums;
+using VirtualMind.Exchange.Infrastructure.Entities.Enums;
 
 namespace VirtualMind.Exchange.Application.Services.Implementations.External
 {
-    public class CurrencyExchangeRateRetrieverService : ICurrencyExchangeRateRetrieverService
+    public class CurrencyExchangeRateApiService : ICurrencyExchangeRateApiService
     {
         private readonly ExternalCurrencyExchangeRateServiceSettings _externalCurrencyExchangeRateServiceSettings;
-        private readonly ILogger<CurrencyExchangeRateRetrieverService> _logger;
+        private readonly ILogger<CurrencyExchangeRateApiService> _logger;
 
-        public CurrencyExchangeRateRetrieverService(IOptions<ExternalCurrencyExchangeRateServiceSettings> externalCurrencyExchangeRateServiceSettings, ILogger<CurrencyExchangeRateRetrieverService> logger)
+        public CurrencyExchangeRateApiService(IOptions<ExternalCurrencyExchangeRateServiceSettings> externalCurrencyExchangeRateServiceSettings, ILogger<CurrencyExchangeRateApiService> logger)
         {
             _externalCurrencyExchangeRateServiceSettings = externalCurrencyExchangeRateServiceSettings.Value;
             _logger = logger;
         }
-        public async Task<CurrencyExchangeRateApiResponse> GetCurrencyExchangeRateAsync(ISOCode isoCode)
+        public async Task<CurrencyExchangeRateApiResponse> RetrieveCurrencyExchangeRateAsync(ISOCode isoCode)
         {
             var url = _externalCurrencyExchangeRateServiceSettings.ExternalServicesUrls.First(x => x.ISOCode == isoCode).Url;
             var client = new HttpClient();

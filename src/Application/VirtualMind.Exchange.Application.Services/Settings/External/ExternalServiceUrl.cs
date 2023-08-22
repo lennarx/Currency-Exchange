@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VirtualMind.Exchange.Domain.Domain.Domain.Enums;
+﻿using VirtualMind.Exchange.Infrastructure.Entities.Enums;
 
 namespace VirtualMind.Exchange.Application.Services.Settings.External
 {

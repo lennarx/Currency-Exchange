@@ -12,7 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Domain\VirtualMind.Exchange.Domain.Domain\VirtualMind.Exchange.Domain.Domain.csproj" />
+    <ProjectReference Include="..\..\Domain\VirtualMind.Exchange.Domain.Domain\VirtualMind.Exchange.Domain.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\VirtualMind.Exchange.Infrastructure\VirtualMind.Exchange.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

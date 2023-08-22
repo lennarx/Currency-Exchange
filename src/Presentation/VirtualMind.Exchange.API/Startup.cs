@@ -1,6 +1,13 @@
-﻿using VirtualMind.Exchange.Application.Services.Implementations.External;
+﻿using Microsoft.EntityFrameworkCore;
+using VirtualMind.Exchange.API.Middlewares;
+using VirtualMind.Exchange.Application.Services.Contracts;
+using VirtualMind.Exchange.Application.Services.Implementations;
+using VirtualMind.Exchange.Application.Services.Implementations.External;
 using VirtualMind.Exchange.Application.Services.Settings.External;
 using VirtualMind.Exchange.Domain.Domain.Contracts.External;
+using VirtualMind.Exchange.Infrastructure.Persistance.Context;
+using VirtualMind.Exchange.Infrastructure.Repositories.Currency.Contracts;
+using VirtualMind.Exchange.Infrastructure.Repositories.Currency.Implementations;
 
 namespace VirtualMind.Exchange.API
 {
@@ -20,14 +27,18 @@ namespace VirtualMind.Exchange.API
             var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
             var connectionString = $"Data source={dbHost}; Initial Catalog={dbName}; TrustServerCertificate=True; User ID =sa; Password={dbPassword}";
 
+            services.AddDbContext<ExchangeDbContext>(options =>
+                options.UseSqlServer(connectionString));
+
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
             services.Configure<ExternalCurrencyExchangeRateServiceSettings>(_configuration.GetSection("Currencies"));
 
-            services.AddAutoMapper(typeof(Startup));
-            services.AddScoped<ICurrencyExchangeRateRetrieverService, CurrencyExchangeRateRetrieverService>();
+            services.AddScoped<ICurrencyExchangeRateApiService, CurrencyExchangeRateApiService>();
+            services.AddScoped<ICurrencyService, CurrencyService>();
+            services.AddScoped<ICurrencyPurchaseRepository, CurrencyPurchaseRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -37,6 +48,8 @@ namespace VirtualMind.Exchange.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseExchangeExceptionMiddleware(LoggerFactory.Create(builder => builder.AddConsole()));
             app.UseHttpsRedirection();
 
             app.UseAuthorization();

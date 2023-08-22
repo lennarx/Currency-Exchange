@@ -19,13 +19,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualMind.Exchange.Applic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualMind.Exchange.API", "src\Presentation\VirtualMind.Exchange.API\VirtualMind.Exchange.API.csproj", "{E747B709-1A21-427F-8BB4-78E1EA29E240}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualMind.Exchange.Domain.Domain", "src\Domain\VirtualMind.Exchange.Domain.Domain\VirtualMind.Exchange.Domain.Domain.csproj", "{FA58AA9F-5DB7-4D21-A396-904494DC599A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualMind.Exchange.Domain", "src\Domain\VirtualMind.Exchange.Domain.Domain\VirtualMind.Exchange.Domain.csproj", "{FA58AA9F-5DB7-4D21-A396-904494DC599A}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1811D1A0-8EFC-47D8-81C0-88B2946896F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualMind.Exchange.Infrastructure", "src\Infrastructure\VirtualMind.Exchange.Infrastructure\VirtualMind.Exchange.Infrastructure.csproj", "{FFFCA590-07CD-4846-8405-2216A991C1D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualMind.Exchange.Infrastructure", "src\Infrastructure\VirtualMind.Exchange.Infrastructure\VirtualMind.Exchange.Infrastructure.csproj", "{FFFCA590-07CD-4846-8405-2216A991C1D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualMind.Exchange.Tests.Acceptance", "tests\VirtualMind.Exchange.Tests.Acceptance\VirtualMind.Exchange.Tests.Acceptance.csproj", "{C9AE6E88-55F0-4063-AC73-C9B0C7498B73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualMind.Exchange.Tests.Acceptance", "tests\VirtualMind.Exchange.Tests.Acceptance\VirtualMind.Exchange.Tests.Acceptance.csproj", "{C9AE6E88-55F0-4063-AC73-C9B0C7498B73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
