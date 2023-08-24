@@ -30,3 +30,15 @@ Examples:
 	| isoCode |
 	|  USD  |
 	|  BRL  |
+
+Scenario: Retrieval of currency exchange rate fails due to null response from external service
+	Given a valid '<isoCode>'
+		But the external service returns a null response
+	When I try to retrieve the currency exchange rate
+	Then I should see an error
+		And the error should include the message No currency exchange rate was found for the given ISO code
+
+Examples:
+	| isoCode |
+	|  USD  |
+	|  BRL  |

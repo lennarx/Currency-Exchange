@@ -191,6 +191,50 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
+        [Xunit.SkippableTheoryAttribute(DisplayName="Retrieval of currency exchange rate fails due to null response from external serv" +
+            "ice")]
+        [Xunit.TraitAttribute("FeatureTitle", "Get Currency exchange rate")]
+        [Xunit.TraitAttribute("Description", "Retrieval of currency exchange rate fails due to null response from external serv" +
+            "ice")]
+        [Xunit.InlineDataAttribute("USD", new string[0])]
+        [Xunit.InlineDataAttribute("BRL", new string[0])]
+        public void RetrievalOfCurrencyExchangeRateFailsDueToNullResponseFromExternalService(string isoCode, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("isoCode", isoCode);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Retrieval of currency exchange rate fails due to null response from external serv" +
+                    "ice", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 34
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 35
+ testRunner.Given(string.Format("a valid \'{0}\'", isoCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 36
+  testRunner.But("the external service returns a null response", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
+#line hidden
+#line 37
+ testRunner.When("I try to retrieve the currency exchange rate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 38
+ testRunner.Then("I should see an error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 39
+  testRunner.And("the error should include the message No currency exchange rate was found for the " +
+                        "given ISO code", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable

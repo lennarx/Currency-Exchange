@@ -87,6 +87,17 @@ namespace VirtualMind.Exchange.Tests.Acceptance.CurrencyExchangeRateRetrieval
             _mockExternalHttpClient.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(mockedHttpResponseMessage);
         }
 
+        [Given(@"the external service returns a null response")]
+        public void GivenTheExternalServiceReturnsANullResponse()
+        {
+            var mockedHttpResponseMessage = new HttpResponseMessage
+            {
+                StatusCode = System.Net.HttpStatusCode.OK,
+                Content = null
+            };
+            _mockExternalHttpClient.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(mockedHttpResponseMessage);
+        }
+
         [When(@"I try to retrieve the currency exchange rate")]
         public async Task WhenITryToRetrieveTheCurrencyExchangeRate()
         {
