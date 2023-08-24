@@ -9,7 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="Moq" Version="4.20.69" />
+    <PackageReference Include="SpecFlow" Version="3.9.74" />
+    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.9.74" />
+    <PackageReference Include="SpecFlow.xUnit" Version="3.9.74" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -19,6 +25,17 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CurrencyPurchase\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Application\VirtualMind.Exchange.Application.Services\VirtualMind.Exchange.Application.Services.csproj" />
+    <ProjectReference Include="..\..\src\Domain\VirtualMind.Exchange.Domain.Domain\VirtualMind.Exchange.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Infrastructure\VirtualMind.Exchange.Infrastructure\VirtualMind.Exchange.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Presentation\VirtualMind.Exchange.API\VirtualMind.Exchange.API.csproj" />
   </ItemGroup>
 
 </Project>
