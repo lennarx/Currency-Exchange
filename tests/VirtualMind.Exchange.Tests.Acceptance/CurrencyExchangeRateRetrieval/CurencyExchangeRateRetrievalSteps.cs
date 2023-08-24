@@ -56,15 +56,17 @@ namespace VirtualMind.Exchange.Tests.Acceptance.CurrencyExchangeRateRetrieval
         }
 
         [Given(@"a valid '(.*)'")]
-        public void GivenAValid(string isoCode)
+        public async Task GivenAValid(string isoCode)
         {
-            _isoCode = isoCode;
-            var mockedHttpResponseMessage = new HttpResponseMessage
-            {
-                Content = new StringContent(JsonSerializer.Serialize(_curencyExchangeRateStringResults)),
-                StatusCode = System.Net.HttpStatusCode.OK
-            };
-            _mockExternalHttpClient.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(mockedHttpResponseMessage);
+            await Task.Run(() => {
+                _isoCode = isoCode;
+                var mockedHttpResponseMessage = new HttpResponseMessage
+                {
+                    Content = new StringContent(JsonSerializer.Serialize(_curencyExchangeRateStringResults)),
+                    StatusCode = System.Net.HttpStatusCode.OK
+                };
+                _mockExternalHttpClient.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(mockedHttpResponseMessage);
+            });            
         }
 
         [Given(@"an invalid isoCode (.*)")]
