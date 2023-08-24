@@ -19,7 +19,7 @@ namespace VirtualMind.Exchange.Tests.Acceptance.CurrencyExchangeRateRetrieval
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class GetCurrencyExchangeRateAndCurrencyPurchaseFeature : object, Xunit.IClassFixture<GetCurrencyExchangeRateAndCurrencyPurchaseFeature.FixtureData>, System.IDisposable
+    public partial class GetCurrencyExchangeRateFeature : object, Xunit.IClassFixture<GetCurrencyExchangeRateFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -31,7 +31,7 @@ namespace VirtualMind.Exchange.Tests.Acceptance.CurrencyExchangeRateRetrieval
 #line 1 "CurrencyExchangeRateRetrieval.feature"
 #line hidden
         
-        public GetCurrencyExchangeRateAndCurrencyPurchaseFeature(GetCurrencyExchangeRateAndCurrencyPurchaseFeature.FixtureData fixtureData, VirtualMind_Exchange_Tests_Acceptance_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public GetCurrencyExchangeRateFeature(GetCurrencyExchangeRateFeature.FixtureData fixtureData, VirtualMind_Exchange_Tests_Acceptance_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,8 +40,7 @@ namespace VirtualMind.Exchange.Tests.Acceptance.CurrencyExchangeRateRetrieval
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "CurrencyExchangeRateRetrieval", "Get Currency exchange rate and currency purchase", "As a user, I want the ability to retrieve the currency exchange rate and perform " +
-                    "currencies purchases", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "CurrencyExchangeRateRetrieval", "Get Currency exchange rate", "As a user, I want the ability to retrieve the currency exchange rate ", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -82,7 +81,7 @@ namespace VirtualMind.Exchange.Tests.Acceptance.CurrencyExchangeRateRetrieval
         }
         
         [Xunit.SkippableTheoryAttribute(DisplayName="Retrieval of currency exchange rate performed succesfully")]
-        [Xunit.TraitAttribute("FeatureTitle", "Get Currency exchange rate and currency purchase")]
+        [Xunit.TraitAttribute("FeatureTitle", "Get Currency exchange rate")]
         [Xunit.TraitAttribute("Description", "Retrieval of currency exchange rate performed succesfully")]
         [Xunit.InlineDataAttribute("USD", new string[0])]
         [Xunit.InlineDataAttribute("BRL", new string[0])]
@@ -116,7 +115,7 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [Xunit.SkippableFactAttribute(DisplayName="Retrieval of currency exchange rate fails due to invalid isoCode provided")]
-        [Xunit.TraitAttribute("FeatureTitle", "Get Currency exchange rate and currency purchase")]
+        [Xunit.TraitAttribute("FeatureTitle", "Get Currency exchange rate")]
         [Xunit.TraitAttribute("Description", "Retrieval of currency exchange rate fails due to invalid isoCode provided")]
         public void RetrievalOfCurrencyExchangeRateFailsDueToInvalidIsoCodeProvided()
         {
@@ -143,7 +142,50 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("I should see an error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 20
-  testRunner.And("the error should include the message invalid isoCode", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("the error should include the message No currency was found", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableTheoryAttribute(DisplayName="Retrieval of currency exchange rate fails due failure response recieved from the " +
+            "external service")]
+        [Xunit.TraitAttribute("FeatureTitle", "Get Currency exchange rate")]
+        [Xunit.TraitAttribute("Description", "Retrieval of currency exchange rate fails due failure response recieved from the " +
+            "external service")]
+        [Xunit.InlineDataAttribute("USD", new string[0])]
+        [Xunit.InlineDataAttribute("BRL", new string[0])]
+        public void RetrievalOfCurrencyExchangeRateFailsDueFailureResponseRecievedFromTheExternalService(string isoCode, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("isoCode", isoCode);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Retrieval of currency exchange rate fails due failure response recieved from the " +
+                    "external service", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 22
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 23
+ testRunner.Given(string.Format("a valid \'{0}\'", isoCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 24
+  testRunner.But("the external service returns a failure message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
+#line hidden
+#line 25
+ testRunner.When("I try to retrieve the currency exchange rate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 26
+ testRunner.Then("I should see an error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 27
+  testRunner.And("the error should include the message Request fail", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -156,12 +198,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                GetCurrencyExchangeRateAndCurrencyPurchaseFeature.FeatureSetup();
+                GetCurrencyExchangeRateFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                GetCurrencyExchangeRateAndCurrencyPurchaseFeature.FeatureTearDown();
+                GetCurrencyExchangeRateFeature.FeatureTearDown();
             }
         }
     }

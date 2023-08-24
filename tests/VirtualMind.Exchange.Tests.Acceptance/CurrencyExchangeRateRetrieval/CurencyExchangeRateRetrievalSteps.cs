@@ -6,7 +6,9 @@ using Moq;
 using System.Text.Json;
 using TechTalk.SpecFlow;
 using VirtualMind.Exchange.API.Controllers;
+using VirtualMind.Exchange.API.Exceptions;
 using VirtualMind.Exchange.Application.Services.Contracts;
+using VirtualMind.Exchange.Application.Services.Contracts.External.Clients;
 using VirtualMind.Exchange.Application.Services.Implementations;
 using VirtualMind.Exchange.Application.Services.Implementations.External;
 using VirtualMind.Exchange.Application.Services.Utils.Extensions;
@@ -22,8 +24,8 @@ namespace VirtualMind.Exchange.Tests.Acceptance.CurrencyExchangeRateRetrieval
     public class CurencyExchangeRateRetrievalSteps
     {
         private ICurrencyExchangeRateApiService _currencyApiService;
-        private Mock<HttpClient> _mockedClient = new();
         private ICurrencyService _currencyService;
+        private Mock<IExternalHttpClient> _mockExternalHttpClient = new ();
         private Mock<ICurrencyPurchaseRepository> _mockCurrencyPurchaseRepository = new();
         private CurrencyController _currencyController;
 
@@ -31,7 +33,8 @@ namespace VirtualMind.Exchange.Tests.Acceptance.CurrencyExchangeRateRetrieval
         private IActionResult _currencyExchangeRateQueryResult;
         private Exception _exceptionResult;
 
-        private IList<CurrencyExchangeRate> _currencyExchangeRateObjectResults;
+        private CurrencyExchangeRate _currencyExchangeRateObjectResult;
+        private string[] _curencyExchangeRateStringResults = { "375", "350", "testUpdate" };
 
         [BeforeScenario]
         public void BeforeSecenario()
@@ -40,16 +43,15 @@ namespace VirtualMind.Exchange.Tests.Acceptance.CurrencyExchangeRateRetrieval
             var loggerCurrencyApiService = loggerFactory.CreateLogger<CurrencyExchangeRateApiService>();
             var loggerCurrencyService = loggerFactory.CreateLogger<CurrencyService>();
 
-            _currencyApiService = new CurrencyExchangeRateApiService(Options.Create(TestHelper.GetMockedSettings()), loggerCurrencyApiService, _mockedClient.Object);
+            _currencyApiService = new CurrencyExchangeRateApiService(Options.Create(TestHelper.GetMockedSettings()), loggerCurrencyApiService, _mockExternalHttpClient.Object);
 
             _currencyService = new CurrencyService(_currencyApiService, loggerCurrencyService, _mockCurrencyPurchaseRepository.Object);
 
             _currencyController = new CurrencyController(_currencyService);
 
-            _currencyExchangeRateObjectResults = new List<CurrencyExchangeRate>
+            _currencyExchangeRateObjectResult = new CurrencyExchangeRate
             {
-                { new CurrencyExchangeRate{ ISOCode = ISOCode.USD.GetDescriptionFromValue(), PurchaseExchangeRate = 375, SaleExchangeRate = 350 } },
-                { new CurrencyExchangeRate{ ISOCode = ISOCode.BRL.GetDescriptionFromValue(), PurchaseExchangeRate = 93.75, SaleExchangeRate = 87.5 } }
+                 ISOCode = ISOCode.USD.GetDescriptionFromValue(), PurchaseExchangeRate = 375, SaleExchangeRate = 350 
             };
         }
 
@@ -57,13 +59,30 @@ namespace VirtualMind.Exchange.Tests.Acceptance.CurrencyExchangeRateRetrieval
         public void GivenAValid(string isoCode)
         {
             _isoCode = isoCode;
-            var mockedResultToReturn = _currencyExchangeRateObjectResults.First(x => x.ISOCode.Equals(isoCode));
             var mockedHttpResponseMessage = new HttpResponseMessage
             {
-                Content = new StringContent(JsonSerializer.Serialize(mockedResultToReturn)),
+                Content = new StringContent(JsonSerializer.Serialize(_curencyExchangeRateStringResults)),
                 StatusCode = System.Net.HttpStatusCode.OK
             };
-            _mockedClient.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(mockedHttpResponseMessage);
+            _mockExternalHttpClient.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(mockedHttpResponseMessage);
+        }
+
+        [Given(@"an invalid isoCode (.*)")]
+        public void GivenAnInvalidIsoCode(string isoCode)
+        {
+            _isoCode = isoCode;
+        }
+
+        [Given(@"the external service returns a failure message")]
+        public void GivenTheExternalServiceReturnsAFailureMessage()
+        {
+            var mockedHttpResponseMessage = new HttpResponseMessage
+            {
+                StatusCode = System.Net.HttpStatusCode.NotFound,
+                RequestMessage = new HttpRequestMessage { Method = new HttpMethod("GET") },
+
+            };
+            _mockExternalHttpClient.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(mockedHttpResponseMessage);
         }
 
         [When(@"I try to retrieve the currency exchange rate")]
@@ -85,7 +104,20 @@ namespace VirtualMind.Exchange.Tests.Acceptance.CurrencyExchangeRateRetrieval
             var okResult = Assert.IsType<OkObjectResult>(_currencyExchangeRateQueryResult);
             var resultValue = okResult.Value as CurrencyExchangeRate;
 
-            resultValue.PurchaseExchangeRate.Should().Be(_currencyExchangeRateObjectResults.First(x => x.ISOCode.Equals(_isoCode)).PurchaseExchangeRate);
+            var expectedResult = _isoCode == ISOCode.USD.GetDescriptionFromValue() ? _currencyExchangeRateObjectResult.PurchaseExchangeRate : _currencyExchangeRateObjectResult.PurchaseExchangeRate / 4;
+            resultValue.PurchaseExchangeRate.Should().Be(expectedResult);
+        }
+
+        [Then(@"I should see an error")]
+        public void ThenIShouldSeeAnError()
+        {
+            _exceptionResult.Should().NotBeNull();
+        }
+
+        [Then(@"the error should include the message (.*)")]
+        public void ThenTheErrorShouldIncludeTheMessage(string message)
+        {
+            _exceptionResult.Message.Should().ContainEquivalentOf(message);
         }
     }
 }
