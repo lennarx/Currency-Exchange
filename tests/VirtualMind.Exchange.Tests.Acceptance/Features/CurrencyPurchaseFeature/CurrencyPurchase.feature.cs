@@ -19,12 +19,18 @@ namespace VirtualMind.Exchange.Tests.Acceptance.Features.CurrencyPurchaseFeature
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    [Xunit.TraitAttribute("Category", "CurrencyExchangeRateRetrieval")]
+    [Xunit.TraitAttribute("Category", "CurrencyPurchase")]
+    [Xunit.TraitAttribute("Category", "Shared")]
     public partial class CurrencyPurchaseFeature : object, Xunit.IClassFixture<CurrencyPurchaseFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-        private static string[] featureTags = ((string[])(null));
+        private static string[] featureTags = new string[] {
+                "CurrencyExchangeRateRetrieval",
+                "CurrencyPurchase",
+                "Shared"};
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
@@ -92,7 +98,7 @@ namespace VirtualMind.Exchange.Tests.Acceptance.Features.CurrencyPurchaseFeature
             argumentsOfScenario.Add("isoCode", isoCode);
             argumentsOfScenario.Add("userId", userId);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Currency purchase performed succesfully", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 5
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -102,19 +108,19 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 6
+#line 9
  testRunner.Given(string.Format("the user {0} has not bought currency {1} in the last month", userId, isoCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 7
+#line 10
   testRunner.And(string.Format("I want to buy the currency {0} for an amount of 10000 pesos", isoCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 8
+#line 11
   testRunner.And("the exchange rate is successfully retrieved", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 9
+#line 12
  testRunner.When("I try to perform the currency purchase", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 10
+#line 13
  testRunner.Then("I should see the purchase performed sucessfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -132,7 +138,7 @@ this.ScenarioInitialize(scenarioInfo);
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("isoCode", isoCode);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("USD Currency purchase fails due to limit exceeded", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 17
+#line 20
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -142,24 +148,67 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 18
+#line 21
  testRunner.Given(string.Format("I bought 80 percent of the monthly limit for currency {0} in the last month", isoCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 19
+#line 22
   testRunner.And(string.Format("I want to buy the currency {0} for an amount of 100000000 pesos", isoCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 20
+#line 23
   testRunner.And("the exchange rate is successfully retrieved", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 21
+#line 24
  testRunner.When("I try to perform the currency purchase", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 22
- testRunner.Then("I should see an error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 25
+ testRunner.Then("I should see an error thrown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 23
-     testRunner.And("the error should include the message you\'re trying to buy exceeds your month limi" +
-                        "t", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 26
+     testRunner.And("the error thrown should include the message you\'re trying to buy exceeds your mon" +
+                        "th limit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableTheoryAttribute(DisplayName="Previous month exceeded currency purchase limit, and this month I buy currency ag" +
+            "ain")]
+        [Xunit.TraitAttribute("FeatureTitle", "Currency purchase")]
+        [Xunit.TraitAttribute("Description", "Previous month exceeded currency purchase limit, and this month I buy currency ag" +
+            "ain")]
+        [Xunit.InlineDataAttribute("USD", new string[0])]
+        [Xunit.InlineDataAttribute("BRL", new string[0])]
+        public void PreviousMonthExceededCurrencyPurchaseLimitAndThisMonthIBuyCurrencyAgain(string isoCode, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("isoCode", isoCode);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Previous month exceeded currency purchase limit, and this month I buy currency ag" +
+                    "ain", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 33
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 34
+ testRunner.Given(string.Format("Last month I exceeded the monthly limit for currency {0}", isoCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 35
+  testRunner.And(string.Format("I want to buy the currency {0} for an amount of 10000 pesos", isoCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 36
+  testRunner.And("the exchange rate is successfully retrieved", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 37
+ testRunner.When("I try to perform the currency purchase", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 38
+ testRunner.Then("I should see the purchase performed sucessfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

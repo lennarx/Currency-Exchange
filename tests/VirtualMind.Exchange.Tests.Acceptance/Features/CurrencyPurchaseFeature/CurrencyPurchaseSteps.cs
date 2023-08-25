@@ -74,6 +74,17 @@ namespace VirtualMind.Exchange.Tests.Acceptance.Features.CurrencyPurchaseFeature
             currencyPurchases.Should().BeEmpty();
         }
 
+        [Given(@"Last month I exceeded the monthly limit for currency (.*)")]
+        public async Task GivenLastMonthIExceededTheMonthlyLimitForCurrencyUSD(string isoCode)
+        {
+            var enumIsoCode = isoCode.GetEnumValueFromDescription<ISOCode>();
+            var currencyLimit = CurrenciesConstants.CurrenciesPurchaseLimits[enumIsoCode];
+            var currencyPurchased = currencyLimit;
+            var amountInPesos = GetAmountInPesosRequiredToBuySpecificCurrency(currencyPurchased, enumIsoCode);
+
+            await _currencyPurchaseRepository.CreateAsync(GetCurrencyPurchase(_defaultUserIdValue, amountInPesos, _saleExchangeRate, enumIsoCode, DateTime.Now.AddDays(-40)));
+        }
+
         [Given(@"I want to buy the currency (.*) for an amount of (.*) pesos")]
         public void GivenIWantToBuyForAnAmountO10000fPesos(string isoCode, string amountInPesos)
         {
@@ -105,11 +116,6 @@ namespace VirtualMind.Exchange.Tests.Acceptance.Features.CurrencyPurchaseFeature
         }
 
 
-        [Given(@"I try to buy 50 usd")]
-        public void GivenITryToBuyUsd()
-        {
-            throw new PendingStepException();
-        }
 
 
         [When(@"I try to perform the currency purchase")]
@@ -140,6 +146,19 @@ namespace VirtualMind.Exchange.Tests.Acceptance.Features.CurrencyPurchaseFeature
             purchaseSummary.Should().NotBeNullOrEmpty();
             purchaseSummary.Should().ContainEquivalentOf($"{_amountToBuyInPesos / exchangeRate}");
         }
+
+        [Then(@"I should see an error thrown")]
+        public void ThenIShouldSeeAnErrorThrown()
+        {
+            _exceptionResult.Should().NotBeNull();
+        }
+
+        [Then(@"the error thrown should include the message (.*)")]
+        public void ThenTheErrorThrownShouldIncludeTheMessage(string message)
+        {
+            _exceptionResult.Message.Should().ContainEquivalentOf(message);
+        }
+
 
         private Infrastructure.Entities.CurrencyPurchase GetCurrencyPurchase(ulong userId, double purchaseAmountInPesos, double currencyExchangeRate, ISOCode isoCode, DateTime purchaseDate)
         {
