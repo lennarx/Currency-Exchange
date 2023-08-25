@@ -6,7 +6,6 @@ using Moq;
 using System.Text.Json;
 using TechTalk.SpecFlow;
 using VirtualMind.Exchange.API.Controllers;
-using VirtualMind.Exchange.API.Exceptions;
 using VirtualMind.Exchange.Application.Services.Contracts;
 using VirtualMind.Exchange.Application.Services.Contracts.External.Clients;
 using VirtualMind.Exchange.Application.Services.Implementations;
@@ -18,14 +17,14 @@ using VirtualMind.Exchange.Infrastructure.Entities.Enums;
 using VirtualMind.Exchange.Infrastructure.Repositories.Currency.Contracts;
 using Xunit;
 
-namespace VirtualMind.Exchange.Tests.Acceptance.CurrencyExchangeRateRetrieval
+namespace VirtualMind.Exchange.Tests.Acceptance.Features.CurrencyExchangeRateRetrievalFeature
 {
     [Binding]
     public class CurencyExchangeRateRetrievalSteps
     {
         private ICurrencyExchangeRateApiService _currencyApiService;
         private ICurrencyService _currencyService;
-        private Mock<IExternalHttpClient> _mockExternalHttpClient = new ();
+        private Mock<IExternalHttpClient> _mockExternalHttpClient = new();
         private Mock<ICurrencyPurchaseRepository> _mockCurrencyPurchaseRepository = new();
         private CurrencyController _currencyController;
 
@@ -51,14 +50,17 @@ namespace VirtualMind.Exchange.Tests.Acceptance.CurrencyExchangeRateRetrieval
 
             _currencyExchangeRateObjectResult = new CurrencyExchangeRate
             {
-                 ISOCode = ISOCode.USD.GetDescriptionFromValue(), PurchaseExchangeRate = 375, SaleExchangeRate = 350 
+                ISOCode = ISOCode.USD.GetDescriptionFromValue(),
+                PurchaseExchangeRate = 375,
+                SaleExchangeRate = 350
             };
         }
 
         [Given(@"a valid '(.*)'")]
         public async Task GivenAValid(string isoCode)
         {
-            await Task.Run(() => {
+            await Task.Run(() =>
+            {
                 _isoCode = isoCode;
                 var mockedHttpResponseMessage = new HttpResponseMessage
                 {
@@ -66,7 +68,7 @@ namespace VirtualMind.Exchange.Tests.Acceptance.CurrencyExchangeRateRetrieval
                     StatusCode = System.Net.HttpStatusCode.OK
                 };
                 _mockExternalHttpClient.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(mockedHttpResponseMessage);
-            });            
+            });
         }
 
         [Given(@"an invalid isoCode (.*)")]

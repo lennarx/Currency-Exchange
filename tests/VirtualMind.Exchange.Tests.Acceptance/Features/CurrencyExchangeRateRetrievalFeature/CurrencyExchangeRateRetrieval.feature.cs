@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace VirtualMind.Exchange.Tests.Acceptance.CurrencyExchangeRateRetrieval
+namespace VirtualMind.Exchange.Tests.Acceptance.Features.CurrencyExchangeRateRetrievalFeature
 {
     using TechTalk.SpecFlow;
     using System;
@@ -40,7 +40,7 @@ namespace VirtualMind.Exchange.Tests.Acceptance.CurrencyExchangeRateRetrieval
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "CurrencyExchangeRateRetrieval", "Get Currency exchange rate", "As a user, I want the ability to retrieve the currency exchange rate ", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/CurrencyExchangeRateRetrievalFeature", "Get Currency exchange rate", "As a user, I want the ability to retrieve the currency exchange rate ", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
