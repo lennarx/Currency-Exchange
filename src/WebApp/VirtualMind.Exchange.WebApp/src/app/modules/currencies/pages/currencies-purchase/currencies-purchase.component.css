@@ -1,0 +1,11 @@
+mat-form-field{
+    border: rgb(0, 0, 0) !important;
+    color: black !important;
+    /* display: flex; */
+    
+}
+
+.example-button-row {
+    display: table-cell;
+    max-width: 600px;
+  }

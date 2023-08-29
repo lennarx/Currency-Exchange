@@ -1,11 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using VirtualMind.Exchange.Infrastructure.Entities;
+﻿using VirtualMind.Exchange.Infrastructure.Entities;
 using VirtualMind.Exchange.Infrastructure.Entities.Enums;
 using VirtualMind.Exchange.Infrastructure.Persistance.Context;
 using VirtualMind.Exchange.Infrastructure.Repositories.Currency.Contracts;

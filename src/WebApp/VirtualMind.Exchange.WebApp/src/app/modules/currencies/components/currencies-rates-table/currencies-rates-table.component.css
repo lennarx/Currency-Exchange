@@ -1,0 +1,49 @@
+table {
+    margin-top: 20px  
+  }
+  
+   
+  
+  th {
+  
+    border: 1px solid white;
+  
+    left: 10px;
+  
+  }
+  
+  tr{
+    background-color: #ffffff;     
+    color: #000000;
+  }
+
+  td {
+  
+    left: 10px;
+    color: #000000;  
+  } 
+ 
+  
+  .mat-header-cell {
+  
+    background-color: #8f878742;
+  
+    color: #000000;
+  
+    text-align: left;
+  
+    width: 1561px;
+  
+    height: 42px;
+  
+    font-style: normal;
+  
+    font-weight: 700;
+  
+    font-size: 12px;
+  
+    vertical-align: middle;
+  
+    padding-left: 15px;
+  
+  }

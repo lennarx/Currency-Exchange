@@ -73,7 +73,7 @@ namespace VirtualMind.Exchange.Application.Services.Implementations
 
             await _currencyPurchaseRepository.CreateAsync(currencyPurchase);
 
-            return new CurrencyPurchase { CurrencyExchangeRate = currencyExchangeRate.PurchaseExchangeRate, PurchaseAmountInPesos = purchaseAmountInPesos };
+            return new CurrencyPurchase { CurrencyExchangeRate = currencyExchangeRate.SaleExchangeRate, PurchaseAmountInPesos = purchaseAmountInPesos };
         }
 
         private async Task<double> GetAmountPurchasedInLastMoth(ISOCode isoCode, ulong userId)

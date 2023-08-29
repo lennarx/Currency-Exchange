@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using VirtualMind.Exchange.API.Extensions;
 using VirtualMind.Exchange.API.Middlewares;
 using VirtualMind.Exchange.Application.Services.Contracts;
+using VirtualMind.Exchange.Application.Services.Contracts.External.Clients;
 using VirtualMind.Exchange.Application.Services.Implementations;
 using VirtualMind.Exchange.Application.Services.Implementations.External;
+using VirtualMind.Exchange.Application.Services.Implementations.External.Clients;
 using VirtualMind.Exchange.Application.Services.Settings.External;
 using VirtualMind.Exchange.Domain.Domain.Contracts.External;
 using VirtualMind.Exchange.Infrastructure.Persistance.Context;
@@ -39,6 +42,8 @@ namespace VirtualMind.Exchange.API
             services.AddScoped<ICurrencyExchangeRateApiService, CurrencyExchangeRateApiService>();
             services.AddScoped<ICurrencyService, CurrencyService>();
             services.AddScoped<ICurrencyPurchaseRepository, CurrencyPurchaseRepository>();
+            services.AddScoped<IExternalHttpClient, ExternalHttpClient>();
+            services.AddHttpClient();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -51,6 +56,12 @@ namespace VirtualMind.Exchange.API
 
             app.UseExchangeExceptionMiddleware(LoggerFactory.Create(builder => builder.AddConsole()));
             app.UseHttpsRedirection();
+
+            app.UseCors(builder =>
+                builder.WithOrigins("*")
+                .AllowAnyHeader()
+                .WithMethods("GET", "PUT", "POST", "DELETE", "PATCH")
+            );
 
             app.UseAuthorization();
         }

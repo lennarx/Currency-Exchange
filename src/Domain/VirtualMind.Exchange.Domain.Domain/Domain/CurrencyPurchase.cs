@@ -4,6 +4,6 @@
     {
         public double PurchaseAmountInPesos { get; set; }
         public double CurrencyExchangeRate { get; set; }
-        public string PurchaseSummary { get => $"{PurchaseAmountInPesos}/{CurrencyExchangeRate}"; }
+        public string AmountPurhcased { get => $"{PurchaseAmountInPesos/CurrencyExchangeRate}"; }
     }
 }

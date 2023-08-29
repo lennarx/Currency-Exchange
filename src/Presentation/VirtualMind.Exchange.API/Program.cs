@@ -20,7 +20,7 @@ using(var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<ExchangeDbContext>();
     if (context.Database.GetPendingMigrations().Any())
     {
-        context.Database.Migrate();
+        await context.Database.MigrateAsync();
     }
 }
 

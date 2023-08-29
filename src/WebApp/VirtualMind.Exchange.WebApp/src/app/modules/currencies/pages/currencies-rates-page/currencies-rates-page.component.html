@@ -1,0 +1,12 @@
+<ng-template #loading>
+    <app-progress-spinner></app-progress-spinner>
+</ng-template>
+<div class="m-top" *ngIf="!isLoading else loading">
+    <h1>
+        Currency exchange rates
+    </h1>
+    <div>
+        <p>All the available currency exchange rates are displayed in the following table</p>
+        <app-currencies-rates-table [currencyExchangeRates]="currenciesExchangeRates"></app-currencies-rates-table>
+    </div>
+</div>

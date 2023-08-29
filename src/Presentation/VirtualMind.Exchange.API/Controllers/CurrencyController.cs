@@ -49,11 +49,11 @@ namespace VirtualMind.Exchange.API.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> PurchaseCurrency([FromRoute] string isoCode, [FromBody] PurchaseForm purchaseForm)
+        public async Task<IActionResult> BuyCurrency([FromRoute] string isoCode, [FromBody] PurchaseForm purchaseForm)
         {
-            var currencyPurchase = await _currencyService.BuyCurrencyAsync(isoCode.ConvertStringISOCodeToEnum(), purchaseForm.userId, purchaseForm.PurchaseAmountInPesos);
+           var currencyPurchase = await _currencyService.BuyCurrencyAsync(isoCode.ConvertStringISOCodeToEnum(), purchaseForm.userId, purchaseForm.PurchaseAmountInPesos);
 
-            return Created(nameof(PurchaseCurrency), currencyPurchase);
+            return Created(nameof(BuyCurrency), currencyPurchase);
         }
     }
 }
