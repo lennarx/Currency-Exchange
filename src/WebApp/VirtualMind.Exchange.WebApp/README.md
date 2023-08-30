@@ -1,27 +1,12 @@
 # VirtualMindExchangeWebApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.6.
+For running this app, run the command npm start on the WebApp directory
 
-## Development server
+# VirtualMindExchangeApi
+Just open the solution with visual studio, and hit the run button. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Check the port the api is running on, and replace that port in file /src/WebApp/src/app/shared/services/currency.service.ts line 14
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+There are 2 known bugs on the frontend that I didn't have time to fix:
+1-The spinner loads on the corner left of the screen and not in the middle
+2-In the purchase form the input fields (located on the left of the screen below the quotes table) are not visible until you click on them
