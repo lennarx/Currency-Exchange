@@ -23,13 +23,5 @@ services:
       - DB_HOST=exchangedb
       - DB_NAME=ExchangeServiceDb
       - DB_SA_PASSWORD=p@55w0rd1234
-  
-  #virtualmind.exchange.webApp:
-  #  image: ${DOCKER_REGISTRY-}webapp
-  #  build: 
-  #    context: .
-  #    dockerfile: src/WebApp/VirtualMind.Exchange.WebApp/Dockerfile
-  #  ports:
-  #      - 4200:80
  
 
